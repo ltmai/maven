@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.linh</groupId>
+	<artifactId>maven.test</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+<!-- Command to run: mvn test -->    
+
+<build>    
+    <plugins>
+        <plugin>
+            <!-- This plugin provides the ability to run Ant tasks from within Maven -->
+            <artifactId>maven-antrun-plugin</artifactId>
+            <!-- executions is to invoke plugin in some phases of the build lifecycle -->
+            <executions>
+                <!--each execution has an unique id-->
+                <execution><!--first run--> 
+                    <id>id-1</id>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                    <configuration>
+                        <tasks>
+                            <echo>######### first execution #########</echo>
+                        </tasks>
+                    </configuration>
+                </execution>
+                <execution><!--second run--> 
+                    <id>id-2</id>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>run</goal>
+                    </goals>
+                    <configuration>
+                        <tasks>
+                            <echo>######### second execution #########</echo>
+                        </tasks>
+                    </configuration>
+                </execution>        
+            </executions>
+        </plugin>
+           
+        <plugin>
+            <!-- The plugin provides 2 goals to help execute system and Java programs. 
+                 See https://www.mojohaus.org/exec-maven-plugin/exec-mojo.html -->
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.5.0</version>        
+            <!-- bind this plugin to the phase TEST -->
+            <executions> 
+                <!-- specify concrete execution-->
+                <execution>
+                    <id>execution-id-test1</id> <!-- id shown during execution -->                    
+                    <phase>test</phase>         <!-- lifecycle phase to execute in -->
+                    <goals>             
+                        <goal>exec</goal>       <!-- plugin goals to be execute -->
+                    </goals>        
+                    <!-- now specify the plugin's parameter values for this execution -->    
+                    <configuration>             <!--goal parameters -->    
+                        <executable>C:\WINDOWS\notepad.exe</executable>
+                        <arguments>
+                            <argument>C:\temp\console.txt</argument>
+                        </arguments>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>        
+    </plugins>
+</build>
+</project>    

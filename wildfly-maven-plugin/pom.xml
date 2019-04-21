@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.linh</groupId>
+	<artifactId>wildfly.test</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+<!-- Example commands:
+
+    mvn wildfly:start                   start wildfly
+    mvn wildfly:shutdown                stop wildfly
+    mvn wildfly:deploy                  deploy a given WAR to wildfly
+    mvn test                            to run the wildfly:execute-commands registered to test
+
+    If the servers are defined in maven settings.xml:
+
+        <servers>
+            <server>
+                <id>remote-wildfly</id>
+                <username>admin</username>
+                <password>secret</password>
+            </server>
+            <server>
+                <id>local-wildfly</id>
+                <username>admin</username>
+                <password>secret</password>
+            </server>
+        </servers>
+
+    The host name and the port number still needs to be configured in pom.xml.
+    The server can be refered in pom.xml as follows:
+
+        <plugin>
+            <groupId>org.wildfly.plugins</groupId>
+            <artifactId>wildfly-maven-plugin</artifactId>
+            <version>${version.wildfly.maven.plugin}</version>
+            <configuration>
+                <id>${wildfly-id}</id>
+                <hostname>${wildfly-hostname}</hostname>
+                <port>${wildfly-port}</port>
+            </configuration>
+        </plugin>
+
+    Example configuration:
+    The goal wildlfy:start has the following parameters among each others:
+        jbossHome	String	-	The WildFly Application Server's home directory. If not used, WildFly will be downloaded.
+                                User property is: jboss-as.home.
+                                    User can define a property jboss-as.home as follows:
+                                    <properties>
+                                        <jboss-as.home>C:\dev\wildfly</jboss-as.home>
+                                    </properties>
+                                Alias is: jboss-home.
+                                    User can also specify parameter value as <jboss-home> in <configuration>:
+                                    <configuration>
+                                        <jboss-home>C:\dev\wildlfy</jboss-home>
+                                    </configuration>
+
+-->
+
+<properties>
+    <version.wildfly.maven.plugin>2.0.1.Final</version.wildfly.maven.plugin>
+    <!-- the following are wildfly user properties as in
+         https://docs.jboss.org/wildfly/plugins/maven/latest/start-mojo.html -->
+    <jboss-as.home>C:\EMES-LAM\wildfly</jboss-as.home>
+    <wildfly.port>9990</wildfly.port>
+    <wildfly.username>admin</wildfly.username>
+    <wildfly.password>password</wildfly.password>
+    <wildfly.startupTimeout>300</wildfly.startupTimeout>
+</properties>
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.wildfly.plugins</groupId>
+            <artifactId>wildfly-maven-plugin</artifactId>
+            <version>${version.wildfly.maven.plugin}</version>
+            <configuration>
+                <!-- parameters for wildfly:deploy, the filename property does have a default of 
+                     ${project.build.finalName}.${project.packaging}. The default value is not 
+                     injected as it normally would be due to packaging types like ejb that result 
+                     in a file with a .jar extension rather than an .ejb extension. -->
+                <filename>my-dummy-project-name.war</filename>
+            </configuration>
+            
+            <!-- register goal wildfly:execute-commands in phase test -->
+            <executions>
+                <execution>
+                    <id>Read Wildfly start time for fun</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>execute-commands</goal>
+                    </goals>
+                    <configuration>
+                        <timeout>120</timeout>
+                        <commands>
+                            <command>/core-service=platform-mbean/type=runtime/:read-attribute(name=start-time)</command>
+                        </commands>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+</project>
