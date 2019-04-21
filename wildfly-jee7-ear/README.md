@@ -10,6 +10,7 @@ https://mvnrepository.com/artifact/org.wildfly.archetype/wildfly-javaee7-webapp-
 
 mvn archetype:generate -DarchetypeGroupId=org.wildfly.archetype -DarchetypeArtifactId=wildfly-javaee7-webapp-ear-blank-archetype -DarchetypeVersion=8.2.0.Final 
 
+```
 wildfly-jee7-ear
 │ 
 │   pom.xml
@@ -61,3 +62,4 @@ wildfly-jee7-ear
         └───test
             ├───java
             └───resources
+```
