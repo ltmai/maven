@@ -1,8 +1,18 @@
-https://maven.apache.org/archetypes/maven-archetype-j2ee-simple/index.html
+# Simple Java EE EAR
 
+The archetype `maven-archetype-j2ee-simple` creates a simple EAR project.
+
+Archetype homepage: https://maven.apache.org/archetypes/maven-archetype-j2ee-simple/index.html
+
+## Generate project
+
+```batch
 mvn archetype:generate -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-j2ee-simple -DarchetypeVersion=1.4 
+```
 
+## Project structure
 
+```
 simple-jee-ear
 │
 │   pom.xml
@@ -64,3 +74,4 @@ simple-jee-ear
             │
             └───test
                 └───java
+```

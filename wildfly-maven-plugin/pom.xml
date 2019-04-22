@@ -61,11 +61,13 @@
     <version.wildfly.maven.plugin>2.0.1.Final</version.wildfly.maven.plugin>
     <!-- the following are wildfly user properties as in
          https://docs.jboss.org/wildfly/plugins/maven/latest/start-mojo.html -->
-    <jboss-as.home>C:\EMES-LAM\wildfly</jboss-as.home>
+    <jboss-as.home>C:\bin\wildfly-16.0.0.Final</jboss-as.home>
     <wildfly.port>9990</wildfly.port>
     <wildfly.username>admin</wildfly.username>
     <wildfly.password>password</wildfly.password>
     <wildfly.startupTimeout>300</wildfly.startupTimeout>
+    <wildfly.timeout>120</wildfly.timeout>
+    <wildfly.stdout>none</wildfly.stdout>
 </properties>
 
 <build>
@@ -91,7 +93,6 @@
                         <goal>execute-commands</goal>
                     </goals>
                     <configuration>
-                        <timeout>120</timeout>
                         <commands>
                             <command>/core-service=platform-mbean/type=runtime/:read-attribute(name=start-time)</command>
                         </commands>
