@@ -3,26 +3,32 @@
 mkdir project
 cd project
 ```
+
 # create top-level POM
 ```
 mvn archetype:generate -Darchetype.interactive=false -batch-mode -DarchetypeGroupId=org.codehaus.mojo.archetypes -DarchetypeArtifactId=pom-root -DarchetypeVersion=RELEASE -DgroupId=mai.linh -DartifactId=project -Dversion=1.0-SNAPSHOT 
 ```
+
 # create webapp module (front-end)
 ```
 mvn archetype:generate -batch-mode -Darchetype.interactive=false -DarchetypeGroupId=org.codehaus.mojo.archetypes     -DarchetypeArtifactId=webapp-javaee7 -DarchetypeVersion=1.1 -DarchetypeRepository=http://repo.maven.apache.org/maven2 -DgroupId=mai.linh -DartifactId=project-webapp -Dversion=1.0-SNAPSHOT -Dpackage=mai.linh.project.webapp     
 ```
+
 # create entities module (reusable entities)
 ```
 mvn archetype:generate -batch-mode -Darchetype.interactive=false -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=RELEASE -DgroupId=mai.linh -DartifactId=project-entities -Dversion=1.0-SNAPSHOT -Dpackage=mai.linh.project.entities 
 ```
+
 # create server module (bussiness logic)
 ```
 mvn archetype:generate -batch-mode -Darchetype.interactive=false -DarchetypeGroupId=org.apache.maven.archetypes -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=RELEASE -DgroupId=mai.linh -DartifactId=project-server -Dversion=1.0-SNAPSHOT -Dpackage=mai.linh.project.server
 ```
+
 # create EAR module
 ```
 mvn archetype:generate -batch-mode -Darchetype.interactive=false -DarchetypeGroupId=org.codehaus.mojo.archetypes -DarchetypeArtifactId=ear-javaee7 -DarchetypeVersion=1.0 -DarchetypeRepository=http://repo.maven.apache.org/maven2 -DgroupId=mai.linh -DartifactId=project-ear -Dversion=1.0-SNAPSHOT -Dpackage=mai.linh.project.ear          
 ```
+
 # manually add EAR dependencies and modules into POM as follows
 ```xml
 	<!--add dependencies manually-->
@@ -80,4 +86,30 @@ mvn archetype:generate -batch-mode -Darchetype.interactive=false -DarchetypeGrou
 			</archive>
 		</configuration>
 	</plugin>
+```
+
+# Adapt project-webapp to use JSF
+
+1. In `project\project-webapp\src\main\webapp` rename the file from `index.html` to `index.xhtml` (JSF uses XHTML). 
+
+2. Create folder `project\project-webapp\src\main\webapp\WEB-INF` and add the JSF configuration files: `beans.xml`, `faces-config.xml` and `web.xml`.
+
+3. In `project\project-webapp\pom.xml` add the JSF dependency: 
+```
+<dependency>
+    <groupId>javax.faces</groupId>
+    <artifactId>javax.faces-api</artifactId>
+    <version>2.3</version>
+    <scope>provided</scope>
+</dependency>
+```
+
+4. If you want to use EJB or CDI beans from `project-server` add the following dependency:
+```
+<dependency>
+    <groupId>mai.linh</groupId>
+    <artifactId>project-server</artifactId>
+    <version>${project.version}</version>
+    <scope>provided</scope>
+</dependency>
 ```
