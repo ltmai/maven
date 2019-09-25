@@ -1,5 +1,6 @@
 **/.project
 **/.settings/
+**/.vscode/
 **/target/
 **/.classpath
 .idea/*
