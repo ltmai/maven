@@ -11,7 +11,7 @@ mvn archetype:generate -Darchetype.interactive=false -batch-mode -DarchetypeGrou
 
 # create webapp module (front-end)
 ```
-mvn archetype:generate -batch-mode -Darchetype.interactive=false -DarchetypeGroupId=org.codehaus.mojo.archetypes     -DarchetypeArtifactId=webapp-javaee7 -DarchetypeVersion=1.1 -DarchetypeRepository=http://repo.maven.apache.org/maven2 -DgroupId=mai.linh -DartifactId=project-webapp -Dversion=1.0-SNAPSHOT -Dpackage=mai.linh.project.webapp     
+mvn archetype:generate -batch-mode -Darchetype.interactive=false -DarchetypeGroupId=org.codehaus.mojo.archetypes -DarchetypeArtifactId=webapp-javaee7 -DarchetypeVersion=1.1 -DarchetypeRepository=http://repo.maven.apache.org/maven2 -DgroupId=mai.linh -DartifactId=project-webapp -Dversion=1.0-SNAPSHOT -Dpackage=mai.linh.project.webapp     
 ```
 
 # create entities module (reusable entities)
